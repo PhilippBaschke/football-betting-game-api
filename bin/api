@@ -1,0 +1,17 @@
+#!/usr/bin/env node
+
+const app = require('..')
+const program = require('commander')
+
+/**
+ * Program options
+ */
+program
+  .option('-H, --host <host>', 'specify the host [0.0.0.0]', '0.0.0.0')
+  .option('-p, --port <port>', 'specify the port [4000]', '4000')
+  .parse(process.argv)
+
+/**
+ * Start server
+ */
+app.listen(program.port, program.host)
