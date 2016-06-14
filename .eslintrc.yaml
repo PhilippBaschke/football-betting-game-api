@@ -122,7 +122,7 @@ rules:
   brace-style: [error, stroustrup, {allowSingleLine: true}]
   camelcase: error
   comma-spacing: error
-  comma-style: [error, first]
+  comma-style: error
   computed-property-spacing: error
   consistent-this: error
   eol-last: error
