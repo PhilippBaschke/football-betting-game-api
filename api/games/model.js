@@ -57,6 +57,7 @@ const serialize = {
   'opts': {
     'id': 'title',
     'attributes': [
+      'title',
       'name',
       'cup',
       'points'
