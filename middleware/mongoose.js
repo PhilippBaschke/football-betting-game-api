@@ -1,3 +1,4 @@
+import bluebird from 'bluebird'
 import mongoose from 'mongoose'
 
 /**
@@ -14,6 +15,10 @@ export default function mongooseMiddleware(options) {
   }
   connectionString += `${options.host}:${options.port}/${options.db}`
   mongoose.connect(connectionString)
+
+  // mpromise is deprecated, you need to plugin in your own Promise library
+  // See: http://mongoosejs.com/docs/promises.html
+  mongoose.Promise = bluebird
 
   return async (ctx, next) => {
     ctx.db = mongoose.connection
