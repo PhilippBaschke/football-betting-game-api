@@ -50,4 +50,26 @@ const gameSchema = new mongoose.Schema({
   }
 })
 
-export default mongoose.model('Game', gameSchema)
+const Game = mongoose.model('Game', gameSchema)
+
+const serialize = {
+  'type': 'games',
+  'opts': {
+    'id': 'title',
+    'attributes': [
+      'name',
+      'cup',
+      'points'
+    ],
+    'cup': {
+      'ref': true
+    }
+  }
+}
+
+export {
+  Game,
+  serialize
+}
+
+export default Game

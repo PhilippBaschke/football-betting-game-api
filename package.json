@@ -15,6 +15,7 @@
     "babel-preset-stage-3": "^6.5.0",
     "commander": "^2.9.0",
     "dotenv": "^2.0.0",
+    "jsonapi-serializer": "^3.2.1",
     "koa": "^2.0.0",
     "koa-router": "^7.0.1",
     "mongoose": "^4.5.0"

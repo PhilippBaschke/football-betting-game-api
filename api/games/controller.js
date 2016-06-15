@@ -1,14 +1,21 @@
-import Game from './model'
+import {Game, serialize} from './model'
+import {Serializer} from 'jsonapi-serializer'
+
+const jsonSerializer = new Serializer(serialize.type, serialize.opts)
 
 const index = async (ctx, next) => {
-  ctx.body = await Game.find()
+  const games = await Game.find()
+
+  ctx.body = jsonSerializer.serialize(games)
   await next()
 }
 
 const show = async (ctx, next) => {
-  ctx.body = await Game.findOne({
+  const game = await Game.findOne({
     'title': ctx.params.title
   })
+
+  ctx.body = jsonSerializer.serialize(game)
   await next()
 }
 

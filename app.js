@@ -1,5 +1,6 @@
 import dotenv from 'dotenv'
 import games from './api/games'
+import jsonApiContentNegotiation from './middleware/jsonApiContentNegotiation'
 import Koa from 'koa'
 import mongoose from './middleware/mongoose'
 
@@ -9,6 +10,11 @@ const app = new Koa()
  * Load environment variables from .env
  */
 dotenv.config()
+
+/**
+ * Perform JSON Api content negotiation
+ */
+app.use(jsonApiContentNegotiation)
 
 /**
  * Database (with mongoose)
