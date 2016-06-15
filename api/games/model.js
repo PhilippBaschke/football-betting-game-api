@@ -10,7 +10,7 @@ const gameSchema = new mongoose.Schema({
     'type': String,
     'required': true
   },
-  'cup': {
+  'tournament': {
     'type': Number,
     'required': true
   },
@@ -59,10 +59,10 @@ const serialize = {
     'attributes': [
       'title',
       'name',
-      'cup',
+      'tournament',
       'points'
     ],
-    'cup': {
+    'tournament': {
       'ref': true
     }
   }
@@ -70,8 +70,8 @@ const serialize = {
 
 const deserialize = {
   'keyForAttribute': 'camelCase',
-  'cups': {
-    'valueForRelationship': (cup) => cup.id
+  'tournaments': {
+    'valueForRelationship': (tournament) => tournament.id
   }
 }
 
