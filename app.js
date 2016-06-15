@@ -1,4 +1,5 @@
 import dotenv from 'dotenv'
+import games from './api/games'
 import Koa from 'koa'
 import mongoose from './middleware/mongoose'
 
@@ -19,5 +20,12 @@ app.use(mongoose({
   'username': process.env.DB_USERNAME,
   'password': process.env.DB_PASSWORD
 }))
+
+/**
+ * Routes
+ */
+app
+  .use(games.routes())
+  .use(games.allowedMethods())
 
 export default app
