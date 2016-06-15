@@ -1,3 +1,4 @@
+import basicAuth from '../../middleware/basicAuth'
 import controller from './controller'
 import Router from 'koa-router'
 
@@ -7,7 +8,7 @@ const gameRouter = new Router({
 
 gameRouter
   .get('/', controller.index)
-  .post('/', controller.create)
+  .post('/', basicAuth, controller.create)
   .get('/:title', controller.show)
 
 export default gameRouter
