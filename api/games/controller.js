@@ -1,7 +1,8 @@
-import {Game, serialize} from './model'
-import {Serializer} from 'jsonapi-serializer'
+import {deserialize, Game, serialize} from './model'
+import {Deserializer, Serializer} from 'jsonapi-serializer'
 
 const jsonSerializer = new Serializer(serialize.type, serialize.opts)
+const jsonDeserializer = new Deserializer(deserialize)
 
 const index = async (ctx, next) => {
   const games = await Game.find()
@@ -19,7 +20,16 @@ const show = async (ctx, next) => {
   await next()
 }
 
+const create = async (ctx, next) => {
+  const gameData = await jsonDeserializer.deserialize(ctx.request.body)
+  const newGame = await new Game(gameData).save()
+
+  ctx.body = jsonSerializer.serialize(newGame)
+  await next()
+}
+
 export default {
   index,
-  show
+  show,
+  create
 }

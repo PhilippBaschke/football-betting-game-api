@@ -1,3 +1,4 @@
+import bodyParser from 'koa-bodyparser'
 import dotenv from 'dotenv'
 import games from './api/games'
 import jsonApiContentNegotiation from './middleware/jsonApiContentNegotiation'
@@ -15,6 +16,20 @@ dotenv.config()
  * Perform JSON Api content negotiation
  */
 app.use(jsonApiContentNegotiation)
+
+/**
+ * Parse the body
+ */
+app.use(bodyParser({
+  'enableTypes': [
+    'json'
+  ],
+  'extendTypes': {
+    'json': [
+      'application/vnd.api+json'
+    ]
+  }
+}))
 
 /**
  * Database (with mongoose)

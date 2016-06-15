@@ -67,9 +67,17 @@ const serialize = {
   }
 }
 
+const deserialize = {
+  'keyForAttribute': 'camelCase',
+  'cups': {
+    'valueForRelationship': (cup) => cup.id
+  }
+}
+
 export {
   Game,
-  serialize
+  serialize,
+  deserialize
 }
 
 export default Game

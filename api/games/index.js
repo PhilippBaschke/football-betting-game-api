@@ -7,6 +7,7 @@ const gameRouter = new Router({
 
 gameRouter
   .get('/', controller.index)
+  .post('/', controller.create)
   .get('/:title', controller.show)
 
 export default gameRouter
