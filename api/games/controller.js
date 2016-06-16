@@ -13,7 +13,7 @@ const index = async (ctx, next) => {
 
 const show = async (ctx, next) => {
   const game = await Game.findOne({
-    'title': ctx.params.title
+    '_id': ctx.params.id
   })
 
   ctx.body = jsonSerializer.serialize(game)
@@ -22,6 +22,8 @@ const show = async (ctx, next) => {
 
 const create = async (ctx, next) => {
   const gameData = await jsonDeserializer.deserialize(ctx.request.body)
+
+  gameData._id = gameData.id
   const newGame = await new Game(gameData).save()
 
   ctx.body = jsonSerializer.serialize(newGame)

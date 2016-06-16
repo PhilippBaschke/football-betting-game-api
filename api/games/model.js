@@ -1,10 +1,8 @@
 import mongoose from 'mongoose'
 
 const gameSchema = new mongoose.Schema({
-  'title': {
-    'type': String,
-    'unique': true,
-    'required': true
+  '_id': {
+    'type': String
   },
   'name': {
     'type': String,
@@ -55,9 +53,7 @@ const Game = mongoose.model('Game', gameSchema)
 const serialize = {
   'type': 'games',
   'opts': {
-    'id': 'title',
     'attributes': [
-      'title',
       'name',
       'tournament',
       'points'

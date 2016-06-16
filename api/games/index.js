@@ -9,6 +9,6 @@ const gameRouter = new Router({
 gameRouter
   .get('/', controller.index)
   .post('/', basicAuth, controller.create)
-  .get('/:title', controller.show)
+  .get('/:id', controller.show)
 
 export default gameRouter
