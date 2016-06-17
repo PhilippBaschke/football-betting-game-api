@@ -1,3 +1,4 @@
+import bets from './api/bets'
 import bodyParser from 'koa-bodyparser'
 import games from './api/games'
 import jsonApiContentNegotiation from './middleware/jsonApiContentNegotiation'
@@ -42,5 +43,7 @@ app.use(mongoose({
 app
   .use(games.routes())
   .use(games.allowedMethods())
+  .use(bets.routes())
+  .use(bets.allowedMethods())
 
 export default app
