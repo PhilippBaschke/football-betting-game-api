@@ -30,16 +30,16 @@ const serialize = {
       'ref': true
     },
     'teams': {
-      'ref': true
+      'ref': '_id'
     },
     'surpriseTeam': {
-      'ref': true
+      'ref': '_id'
     },
     'loserTeam': {
-      'ref': true
+      'ref': '_id'
     },
     'winner': {
-      'ref': true
+      'ref': '_id'
     }
   }
 }
