@@ -1,11 +1,7 @@
-import {deserialize, serialize} from './model'
-import {Deserializer, Serializer} from 'jsonapi-serializer'
+import {Deserializer, Serializer} from './serializer'
 import fp from 'lodash/fp'
 import Game from '../games/model'
 import mongoose from 'mongoose'
-
-const jsonSerializer = new Serializer(serialize.type, serialize.opts)
-const jsonDeserializer = new Deserializer(deserialize)
 
 const index = async (ctx, next) => {
   const bets = await Game.aggregate([
@@ -25,7 +21,7 @@ const index = async (ctx, next) => {
     }
   ])
 
-  ctx.body = jsonSerializer.serialize(bets)
+  ctx.body = Serializer.serialize(bets)
   await next()
 }
 
@@ -63,12 +59,12 @@ const show = async (ctx, next) => {
     }
   ])
 
-  ctx.body = jsonSerializer.serialize(bet)
+  ctx.body = Serializer.serialize(bet)
   await next()
 }
 
 const create = async (ctx, next) => {
-  const betData = await jsonDeserializer.deserialize(ctx.request.body)
+  const betData = await Deserializer.deserialize(ctx.request.body)
   const game = await Game.findOne({
     '_id': betData.game
   })
@@ -78,7 +74,7 @@ const create = async (ctx, next) => {
   newBet = fp.last(game.bets)
   await game.save()
 
-  ctx.body = jsonSerializer.serialize(newBet.toObject())
+  ctx.body = Serializer.serialize(newBet.toObject())
   await next()
 }
 
