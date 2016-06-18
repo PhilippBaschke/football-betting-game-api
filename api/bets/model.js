@@ -1,11 +1,7 @@
 import mongoose from 'mongoose'
+import {Schema as teamSchema} from '../teams/model'
 
-const betSchema = new mongoose.Schema({
-  'game': {
-    'type': String,
-    'ref': 'Game',
-    'required': true
-  },
+const Schema = new mongoose.Schema({
   'player': {
     'name': {
       'type': String,
@@ -18,24 +14,24 @@ const betSchema = new mongoose.Schema({
     }
   },
   'teams': {
-    'type': [Number],
+    'type': [teamSchema],
     'required': true
   },
   'surpriseTeam': {
-    'type': Number,
+    'type': teamSchema,
     'required': true
   },
   'loserTeam': {
-    'type': Number,
+    'type': teamSchema,
     'required': true
   },
   'winner': {
-    'type': Number,
+    'type': teamSchema,
     'required': true
   }
 })
 
-const Bet = mongoose.model('Bet', betSchema)
+const Bet = mongoose.model('Bet', Schema)
 
 const keyForAttribute = (attr) => attr
 
@@ -87,11 +83,12 @@ const deserialize = {
     'valueForRelationship': (game) => game.id
   },
   'teams': {
-    'valueForRelationship': (team) => team.id
+    'valueForRelationship': (team) => ({'_id': team.id})
   }
 }
 
 export {
+  Schema,
   Bet,
   serialize,
   deserialize

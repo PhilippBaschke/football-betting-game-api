@@ -16,7 +16,7 @@ const show = async (ctx, next) => {
     '_id': ctx.params.id
   })
 
-  ctx.body = jsonSerializer.serialize(game)
+  ctx.body = jsonSerializer.serialize(game.toObject())
   await next()
 }
 
