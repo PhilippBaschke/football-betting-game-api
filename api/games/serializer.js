@@ -1,4 +1,5 @@
 import {Deserializer, Serializer} from 'jsonapi-serializer'
+import {serializeOpts as betsSerializeOpts} from '../bets/serializer'
 
 const serialize = {
   'type': 'games',
@@ -21,34 +22,7 @@ const serialize = {
     'tournament': {
       'ref': true
     },
-    'bets': {
-      'ref': '_id',
-      'attributes': [
-        'game',
-        'player',
-        'teams',
-        'winner',
-        'loserTeam',
-        'surpriseTeam'
-      ],
-      'player': {
-        'attributes': [
-          'name'
-        ]
-      },
-      'teams': {
-        'ref': '_id'
-      },
-      'winner': {
-        'ref': '_id'
-      },
-      'surpriseTeam': {
-        'ref': '_id'
-      },
-      'loserTeam': {
-        'ref': '_id'
-      }
-    }
+    'bets': betsSerializeOpts()
   }
 }
 

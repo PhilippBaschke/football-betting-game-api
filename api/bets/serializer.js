@@ -1,11 +1,17 @@
 import {Deserializer, Serializer} from 'jsonapi-serializer'
+import fp from 'lodash/fp'
 
+const type = 'bets'
 const keyForAttribute = (attr) => attr
+const typeForAttribute = (attr) => {
+  if (attr === type) { return attr }
+  if (attr === 'game') { return 'games' }
 
-const serialize = {
-  'type': 'bets',
-  'opts': {
-    'id': '_id',
+  return 'teams'
+}
+
+const serializeOpts = (isRef = true) => {
+  const baseOptions = {
     'attributes': [
       'game',
       'player',
@@ -14,20 +20,10 @@ const serialize = {
       'loserTeam',
       'winner'
     ],
-    keyForAttribute,
-    'typeForAttribute': (attr) => {
-      if (attr === serialize.type) { return attr }
-      if (attr === 'game') { return 'games' }
-
-      return 'teams'
-    },
     'player': {
       'attributes': [
         'name'
       ]
-    },
-    'game': {
-      'ref': true
     },
     'teams': {
       'ref': '_id'
@@ -42,9 +38,28 @@ const serialize = {
       'ref': '_id'
     }
   }
+
+  const rootOptions = {
+    'id': '_id',
+    keyForAttribute,
+    typeForAttribute,
+    'game': {
+      'ref': true
+    }
+  }
+
+  const refOptions = {
+    'ref': '_id'
+  }
+
+  if (isRef) {
+    return fp.merge(baseOptions, refOptions)
+  }
+
+  return fp.merge(baseOptions, rootOptions)
 }
 
-const deserialize = {
+const deserializeOpts = {
   keyForAttribute,
   'games': {
     'valueForRelationship': (game) => game.id
@@ -54,10 +69,11 @@ const deserialize = {
   }
 }
 
-const betSerializer = new Serializer(serialize.type, serialize.opts)
-const betDeserializer = new Deserializer(deserialize)
+const betSerializer = new Serializer(type, serializeOpts(false))
+const betDeserializer = new Deserializer(deserializeOpts)
 
 export {
+  serializeOpts,
   betSerializer as Serializer,
   betDeserializer as Deserializer
 }
