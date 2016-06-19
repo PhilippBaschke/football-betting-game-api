@@ -8,7 +8,7 @@ const only_id = fp.compose(fp.mapKeys(() => '_id'), fp.pick(['id']))
 
 /* eslint-enable camelcase */
 const index = async (ctx, next) => {
-  const soccerSeasons = await SoccerSeason.find().lean()
+  const soccerSeasons = await SoccerSeason.find().populate('teams')
 
   ctx.body = Serializer.serialize(soccerSeasons)
   await next()
@@ -17,7 +17,7 @@ const index = async (ctx, next) => {
 const show = async (ctx, next) => {
   const soccerSeason = await SoccerSeason.findOne({
     '_id': ctx.params.id
-  }).lean()
+  }).populate('teams')
 
   ctx.body = Serializer.serialize(soccerSeason)
   await next()

@@ -1,5 +1,6 @@
 import {Deserializer, Serializer} from 'jsonapi-serializer'
 import fp from 'lodash/fp'
+import {serializeOpts as teamsSerializeOpts} from '../teams/serializer'
 
 const type = 'soccerseasons'
 const concatArrays = (objValue, srcValue) => {
@@ -22,9 +23,8 @@ const serializeOpts = (isRef = true) => {
     'attributes': [
       'teams'
     ],
-    'teams': {
-      'ref': true
-    }
+    'teams': teamsSerializeOpts(),
+    'keyForAttribute': fp.identity
   }
 
   const refOptions = {
