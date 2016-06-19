@@ -31,7 +31,7 @@ const createTeams = async (apiData) => {
   return fp.map('_id', newTeams)
 }
 
-const create = async (ctx, next) => {
+const createSoccerSeason = async (ctx) => {
   const requestData = await Deserializer.deserialize(ctx.request.body)
   const soccerseasonsApi = `/soccerseasons/${requestData.id}`
   const apiData = await ctx.footballData(soccerseasonsApi)
@@ -42,6 +42,13 @@ const create = async (ctx, next) => {
   const newSoccerSeason = await new SoccerSeason(soccerSeasonData)
 
   newSoccerSeason.teams.addToSet(...newTeams)
+
+  return newSoccerSeason
+}
+
+const create = async (ctx, next) => {
+  const newSoccerSeason = await createSoccerSeason(ctx)
+
   newSoccerSeason.save()
   ctx.body = Serializer.serialize(newSoccerSeason)
   await next()
