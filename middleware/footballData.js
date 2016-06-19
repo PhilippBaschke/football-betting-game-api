@@ -5,7 +5,8 @@ export default function footballData(options) {
     'baseUrl': options.url,
     'headers': {
       'User-Agent': 'football-betting-game-api',
-      'X-Auth-Token': options.token
+      'X-Auth-Token': options.token,
+      'X-Response-Control': 'minified'
     },
     'json': true
   })
