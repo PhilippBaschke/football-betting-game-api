@@ -20,11 +20,11 @@ const Schema = new mongoose.Schema({
   }
 })
 
-const Tournament = mongoose.model('Tournament', Schema)
+const SoccerSeason = mongoose.model('SoccerSeason', Schema)
 
 export {
   Schema,
-  Tournament
+  SoccerSeason
 }
 
-export default Tournament
+export default SoccerSeason

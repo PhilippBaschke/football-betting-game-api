@@ -2,13 +2,13 @@ import basicAuth from '../../middleware/basicAuth'
 import controller from './controller'
 import Router from 'koa-router'
 
-const tournamentRouter = new Router({
-  'prefix': '/api/tournaments'
+const soccerSeasonsRouter = new Router({
+  'prefix': '/api/soccerseasons'
 })
 
-tournamentRouter
+soccerSeasonsRouter
   .get('/', controller.index)
   .post('/', basicAuth, controller.create)
   .get('/:id', controller.show)
 
-export default tournamentRouter
+export default soccerSeasonsRouter

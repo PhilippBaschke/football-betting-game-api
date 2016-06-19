@@ -1,6 +1,6 @@
 import {Deserializer, Serializer} from 'jsonapi-serializer'
 
-const type = 'tournaments'
+const type = 'soccerseasons'
 
 const serializeOpts = {
   'id': '_id',
@@ -17,10 +17,10 @@ const serializeOpts = {
 
 const deserializeOpts = {}
 
-const tournamentSerializer = new Serializer(type, serializeOpts)
-const tournamentDeserializer = new Deserializer(deserializeOpts)
+const soccerSeasonsSerializer = new Serializer(type, serializeOpts)
+const soccerSeasonsDeserializer = new Deserializer(deserializeOpts)
 
 export {
-  tournamentSerializer as Serializer,
-  tournamentDeserializer as Deserializer
+  soccerSeasonsSerializer as Serializer,
+  soccerSeasonsDeserializer as Deserializer
 }
