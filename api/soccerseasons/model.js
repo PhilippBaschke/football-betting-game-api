@@ -15,8 +15,10 @@ const Schema = new mongoose.Schema({
     'required': true
   },
   'teams': {
-    'type': [Number],
-    'ref': 'Team'
+    'type': [{
+      'type': Number,
+      'ref': 'Team'
+    }]
   }
 })
 
