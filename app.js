@@ -1,5 +1,6 @@
 import bets from './api/bets'
 import bodyParser from 'koa-bodyparser'
+import footballData from './middleware/footballData'
 import games from './api/games'
 import jsonApiContentNegotiation from './middleware/jsonApiContentNegotiation'
 import Koa from 'koa'
@@ -25,6 +26,14 @@ app.use(bodyParser({
       'application/vnd.api+json'
     ]
   }
+}))
+
+/**
+ * Add a helper function to query the football-data.org API
+ */
+app.use(footballData({
+  'url': 'http://api.football-data.org/v1/',
+  'token': process.env.FD_API_TOKEN
 }))
 
 /**
