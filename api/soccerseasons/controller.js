@@ -1,6 +1,7 @@
 import {Deserializer, Serializer} from './serializer'
 import fp from 'lodash/fp'
 import SoccerSeason from './model'
+import Team from '../teams/model'
 
 /* eslint-disable camelcase */
 const only_id = fp.compose(fp.mapKeys(() => '_id'), fp.pick(['id']))
@@ -22,12 +23,26 @@ const show = async (ctx, next) => {
   await next()
 }
 
+const createTeams = async (apiData) => {
+  const teamData =
+          fp.map((team) => fp.set('_id', team.id, team), apiData.teams)
+  const newTeams = await Team.create(teamData)
+
+  return fp.map('_id', newTeams)
+}
+
 const create = async (ctx, next) => {
   const requestData = await Deserializer.deserialize(ctx.request.body)
-  const apiData = await ctx.footballData(`/soccerseasons/${requestData.id}`)
+  const soccerseasonsApi = `/soccerseasons/${requestData.id}`
+  const apiData = await ctx.footballData(soccerseasonsApi)
   const soccerSeasonData = fp.assign(only_id(requestData), apiData)
-  const newSoccerSeason = await new SoccerSeason(soccerSeasonData).save()
+  const newTeams = await createTeams(
+    await ctx.footballData(`${soccerseasonsApi}/teams`)
+  )
+  const newSoccerSeason = await new SoccerSeason(soccerSeasonData)
 
+  newSoccerSeason.teams.addToSet(...newTeams)
+  newSoccerSeason.save()
   ctx.body = Serializer.serialize(newSoccerSeason)
   await next()
 }
