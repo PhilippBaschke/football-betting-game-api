@@ -1,6 +1,11 @@
 import {Deserializer, Serializer} from './serializer'
+import fp from 'lodash/fp'
 import Tournament from './model'
 
+/* eslint-disable camelcase */
+const only_id = fp.compose(fp.mapKeys(() => '_id'), fp.pick(['id']))
+
+/* eslint-enable camelcase */
 const index = async (ctx, next) => {
   const tournaments = await Tournament.find().lean()
 
@@ -18,9 +23,14 @@ const show = async (ctx, next) => {
 }
 
 const create = async (ctx, next) => {
-  const tournamentData = await Deserializer.deserialize(ctx.request.body)
-
-  tournamentData._id = tournamentData.id
+  const tournamentRequestData =
+          await Deserializer.deserialize(ctx.request.body)
+  const tournamentApiData =
+          await ctx.footballData(`/soccerseasons/${tournamentRequestData.id}`)
+  const tournamentData = fp.assign(
+    only_id(tournamentRequestData),
+    tournamentApiData
+  )
   const newTournament = await new Tournament(tournamentData).save()
 
   ctx.body = Serializer.serialize(newTournament)

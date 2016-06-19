@@ -5,7 +5,9 @@ const type = 'tournaments'
 const serializeOpts = {
   'id': '_id',
   'attributes': [
-    'name',
+    'caption',
+    'league',
+    'year',
     'teams'
   ],
   'teams': {
