@@ -2,7 +2,10 @@ import {Deserializer, Serializer} from './serializer'
 import Game from './model'
 
 const index = async (ctx, next) => {
-  const games = await Game.find()
+  const games = await Game.find().populate({
+    'path': 'soccerseason',
+    'select': 'caption league year'
+  })
 
   ctx.body = Serializer.serialize(games)
   await next()
@@ -11,9 +14,12 @@ const index = async (ctx, next) => {
 const show = async (ctx, next) => {
   const game = await Game.findOne({
     '_id': ctx.params.id
-  }).populate('soccerseason')
+  }).populate({
+    'path': 'soccerseason',
+    'populate': {'path': 'teams'}
+  })
 
-  ctx.body = Serializer.serialize(game.toObject())
+  ctx.body = Serializer.serialize(game)
   await next()
 }
 
