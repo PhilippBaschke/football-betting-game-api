@@ -6,6 +6,7 @@ import jsonApiContentNegotiation from './middleware/jsonApiContentNegotiation'
 import Koa from 'koa'
 import mongoose from './middleware/mongoose'
 import soccerSeasons from './api/soccerseasons'
+import teams from './api/teams'
 
 const app = new Koa()
 
@@ -53,6 +54,8 @@ app.use(mongoose({
 app
   .use(soccerSeasons.routes())
   .use(soccerSeasons.allowedMethods())
+  .use(teams.routes())
+  .use(teams.allowedMethods())
   .use(games.routes())
   .use(games.allowedMethods())
   .use(bets.routes())
