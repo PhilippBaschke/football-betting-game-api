@@ -4,6 +4,7 @@ import games from './api/games'
 import jsonApiContentNegotiation from './middleware/jsonApiContentNegotiation'
 import Koa from 'koa'
 import mongoose from './middleware/mongoose'
+import tournaments from './api/tournaments'
 
 const app = new Koa()
 
@@ -41,6 +42,8 @@ app.use(mongoose({
  * Routes
  */
 app
+  .use(tournaments.routes())
+  .use(tournaments.allowedMethods())
   .use(games.routes())
   .use(games.allowedMethods())
   .use(bets.routes())
