@@ -50,6 +50,8 @@ const create = async (ctx, next) => {
   const newSoccerSeason = await createSoccerSeason(ctx)
 
   newSoccerSeason.save()
+  await SoccerSeason.populate(newSoccerSeason, {'path': 'teams'})
+
   ctx.body = Serializer.serialize(newSoccerSeason)
   await next()
 }
