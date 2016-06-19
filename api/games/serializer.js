@@ -1,5 +1,7 @@
 import {Deserializer, Serializer} from 'jsonapi-serializer'
 import {serializeOpts as betsSerializeOpts} from '../bets/serializer'
+import {serializeOpts as soccerSeasonsSerializeOpts}
+from '../soccerseasons/serializer'
 
 const serialize = {
   'type': 'games',
@@ -19,14 +21,7 @@ const serialize = {
 
       return 'teams'
     },
-    'soccerseason': {
-      'ref': '_id',
-      'attributes': [
-        'caption',
-        'league',
-        'year'
-      ]
-    },
+    'soccerseason': soccerSeasonsSerializeOpts(),
     'bets': betsSerializeOpts()
   }
 }
