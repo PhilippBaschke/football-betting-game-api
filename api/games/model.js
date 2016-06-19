@@ -9,8 +9,9 @@ const Schema = new mongoose.Schema({
     'type': String,
     'required': true
   },
-  'tournament': {
+  'soccerseason': {
     'type': Number,
+    'ref': 'SoccerSeason',
     'required': true
   },
   'points': {

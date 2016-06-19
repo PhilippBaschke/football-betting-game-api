@@ -7,20 +7,25 @@ const serialize = {
     'id': '_id',
     'attributes': [
       'name',
-      'tournament',
+      'soccerseason',
       'points',
       'bets'
     ],
     'keyForAttribute': 'camelCase',
     'typeForAttribute': (attr) => {
       if (attr === serialize.type) { return attr }
-      if (attr === 'tournament') { return 'tournaments' }
+      if (attr === 'soccerseason') { return 'soccerseasons' }
       if (attr === 'bets') { return 'bets' }
 
       return 'teams'
     },
-    'tournament': {
-      'ref': true
+    'soccerseason': {
+      'ref': '_id',
+      'attributes': [
+        'caption',
+        'league',
+        'year'
+      ]
     },
     'bets': betsSerializeOpts()
   }
@@ -28,8 +33,8 @@ const serialize = {
 
 const deserialize = {
   'keyForAttribute': 'camelCase',
-  'tournaments': {
-    'valueForRelationship': (tournament) => tournament.id
+  'soccerseasons': {
+    'valueForRelationship': (soccerseason) => soccerseason.id
   }
 }
 

@@ -11,7 +11,7 @@ const index = async (ctx, next) => {
 const show = async (ctx, next) => {
   const game = await Game.findOne({
     '_id': ctx.params.id
-  })
+  }).populate('soccerseason')
 
   ctx.body = Serializer.serialize(game.toObject())
   await next()
