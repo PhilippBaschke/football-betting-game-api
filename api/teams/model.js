@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
+import fp from 'lodash/fp'
 
-// TODO: Use virtual fields to get the other fields (from the API)
 const Schema = new mongoose.Schema({
   '_id': Number,
   'name': {
@@ -12,6 +12,15 @@ const Schema = new mongoose.Schema({
     'required': true
   }
 })
+
+Schema.statics.createFromSoccerSeason =
+  async function createFromSoccerSeason(id) {
+    const apiData = await this.footballData(`/soccerseasons/${id}/teams`)
+    const teamData =
+            fp.map((team) => fp.set('_id', team.id, team), apiData.teams)
+
+    return await this.create(teamData)
+  }
 
 const Team = mongoose.model('Team', Schema)
 
