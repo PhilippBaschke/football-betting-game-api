@@ -198,7 +198,8 @@ rules:
   babel/arrow-parens: error
   arrow-spacing: error
   constructor-super: error
-  generator-star-spacing: error
+  generator-star-spacing: off
+  babel/generator-star-spacing: error
   no-class-assign: error
   no-const-assign: error
   no-dupe-class-members: error
