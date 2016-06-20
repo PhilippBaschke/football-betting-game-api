@@ -1,3 +1,4 @@
+import addApiDataPlugin from '../../plugins/addApiData'
 import mongoose from 'mongoose'
 
 const Schema = new mongoose.Schema({
@@ -20,6 +21,10 @@ const Schema = new mongoose.Schema({
       'ref': 'Team'
     }]
   }
+})
+
+Schema.plugin(addApiDataPlugin, {
+  'url': 'soccerseasons'
 })
 
 const SoccerSeason = mongoose.model('SoccerSeason', Schema)
