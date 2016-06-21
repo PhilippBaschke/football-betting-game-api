@@ -1,4 +1,3 @@
-import addApiDataPlugin from '../../plugins/addApiData'
 import mongoose from 'mongoose'
 
 const Schema = new mongoose.Schema({
@@ -23,9 +22,24 @@ const Schema = new mongoose.Schema({
   }
 })
 
-Schema.plugin(addApiDataPlugin, {
-  'url': 'soccerseasons'
-})
+Schema.pre(
+  'validate',
+
+  /**
+   * Add data from the football-data.org API
+   *
+   * @param {function} next The next middleware
+   * @this mongoose.Document
+   * @return {undefined}
+   */
+  async function getApiData(next) {
+    const apiData =
+            await this.constructor.footballData(`/soccerseasons/${this._id}`)
+
+    this.set(apiData)
+    next()
+  }
+)
 
 const SoccerSeason = mongoose.model('SoccerSeason', Schema)
 
