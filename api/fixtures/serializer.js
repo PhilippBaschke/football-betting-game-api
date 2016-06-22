@@ -17,16 +17,16 @@ const serializeOpts = (isRef = true) => {
     },
     'awayTeam': {
       'ref': 'id'
-    },
+    }
+  }
+
+  const rootOptions = {
+    'keyForAttribute': fp.identity,
     'typeForAttribute': (attr) => {
       if (fp.endsWith('Team', attr)) { return 'teams' }
 
       return attr
     }
-  }
-
-  const rootOptions = {
-    'keyForAttribute': fp.identity
   }
 
   const refOptions = {
