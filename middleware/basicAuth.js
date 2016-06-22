@@ -1,8 +1,6 @@
 import auth from 'koa-basic-auth'
+import config from 'config'
 
-const basicAuth = auth({
-  'name': process.env.BA_NAME,
-  'pass': process.env.BA_PASS
-})
+const basicAuth = auth(config.basicAuth)
 
 export default basicAuth

@@ -1,5 +1,6 @@
 import bets from './api/bets'
 import bodyParser from 'koa-bodyparser'
+import config from 'config'
 import games from './api/games'
 import jsonApiContentNegotiation from './middleware/jsonApiContentNegotiation'
 import Koa from 'koa'
@@ -31,13 +32,7 @@ app.use(bodyParser({
 /**
  * Database (with mongoose)
  */
-app.use(mongoose({
-  'host': process.env.DB_HOST,
-  'port': process.env.DB_PORT,
-  'db': process.env.DB_NAME,
-  'username': process.env.DB_USERNAME,
-  'password': process.env.DB_PASSWORD
-}))
+app.use(mongoose(config.database))
 
 /**
  * Routes

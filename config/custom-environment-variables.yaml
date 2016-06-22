@@ -1,0 +1,13 @@
+database:
+  host: DB_HOST
+  port: DB_PORT
+  db: DB_NAME
+  username: DB_USERNAME
+  password: DB_PASSWORD
+
+basicAuth:
+  name: BA_NAME
+  pass: BA_PASS
+
+footballData:
+  token: FD_API_TOKEN

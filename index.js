@@ -11,14 +11,16 @@ const dotenv = require('dotenv')
 dotenv.config()
 
 /**
+ * Load the configuration
+ */
+const config = require('config')
+
+/**
  * Register mongoose plugins
  */
 const mongoose = require('mongoose')
 
-mongoose.plugin(require('./plugins/footballData').default, {
-  'url': 'http://api.football-data.org/v1/',
-  'token': process.env.FD_API_TOKEN
-})
+mongoose.plugin(require('./plugins/footballData').default, config.footballData)
 
 /**
  * Load the app
