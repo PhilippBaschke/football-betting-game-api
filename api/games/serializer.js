@@ -1,5 +1,6 @@
 import {Deserializer, Serializer} from 'jsonapi-serializer'
 import {serializeOpts as betsSerializeOpts} from '../bets/serializer'
+import fp from 'lodash/fp'
 import {serializeOpts as soccerSeasonsSerializeOpts}
 from '../soccerseasons/serializer'
 
@@ -15,11 +16,9 @@ const serialize = {
     ],
     'keyForAttribute': 'camelCase',
     'typeForAttribute': (attr) => {
-      if (attr === serialize.type) { return attr }
-      if (attr === 'soccerseason') { return 'soccerseasons' }
-      if (attr === 'bets') { return 'bets' }
+      if (fp.includes('team', fp.lowerCase(attr))) { return 'teams' }
 
-      return 'teams'
+      return attr
     },
     'soccerseason': soccerSeasonsSerializeOpts(),
     'bets': betsSerializeOpts()

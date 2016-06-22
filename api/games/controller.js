@@ -19,7 +19,7 @@ const show = async (ctx, next) => {
     'populate': {'path': 'teams'}
   })
 
-  ctx.body = Serializer.serialize(game)
+  ctx.body = Serializer.serialize(game.toObject())
   await next()
 }
 
