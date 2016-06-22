@@ -1,4 +1,5 @@
 import config from 'config'
+import Fixture from '../fixtures/model'
 import footballData from '../../plugins/footballData'
 import fp from 'lodash/fp'
 import mongoose from 'mongoose'
@@ -45,10 +46,9 @@ Schema.pre(
 )
 
 const addFixtures = async (query, soccerSeason) => {
-  const fixturesApi = `/soccerseasons/${soccerSeason._id}/fixtures`
-  const apiData = await query.model.footballData(fixturesApi)
+  const fixtures = await Fixture.findBySoccerSeason(soccerSeason)
 
-  soccerSeason.set('fixtures', apiData.fixtures, {'strict': false})
+  soccerSeason.set('fixtures', fixtures, {'strict': false})
 
   return soccerSeason
 }

@@ -26,6 +26,13 @@ const model = (schema) => {
       const apiData = await this.footballData(`/fixtures/${query._id}`)
 
       return await transform(apiData.fixture)
+    },
+
+    async findBySoccerSeason(soccerSeason) {
+      const fixturesApi = `/soccerseasons/${soccerSeason._id}/fixtures`
+      const apiData = await this.footballData(fixturesApi)
+
+      return fp.map(transform, apiData.fixtures)
     }
   }
 
