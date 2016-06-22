@@ -11,18 +11,6 @@ const dotenv = require('dotenv')
 dotenv.config()
 
 /**
- * Load the configuration
- */
-const config = require('config')
-
-/**
- * Register mongoose plugins
- */
-const mongoose = require('mongoose')
-
-mongoose.plugin(require('./plugins/footballData').default, config.footballData)
-
-/**
  * Load the app
  */
 module.exports = require('./app.js').default

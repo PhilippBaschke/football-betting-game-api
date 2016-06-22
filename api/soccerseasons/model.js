@@ -1,3 +1,5 @@
+import config from 'config'
+import footballData from '../../plugins/footballData'
 import fp from 'lodash/fp'
 import mongoose from 'mongoose'
 
@@ -90,6 +92,8 @@ Schema.post(
     next()
   }
 )
+
+Schema.plugin(footballData, config.footballData)
 
 const SoccerSeason = mongoose.model('SoccerSeason', Schema)
 

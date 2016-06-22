@@ -1,5 +1,7 @@
-import mongoose from 'mongoose'
+import config from 'config'
+import footballData from '../../plugins/footballData'
 import fp from 'lodash/fp'
+import mongoose from 'mongoose'
 
 const Schema = new mongoose.Schema({
   '_id': Number,
@@ -21,6 +23,8 @@ Schema.statics.createFromSoccerSeason =
 
     return await this.create(teamData)
   }
+
+Schema.plugin(footballData, config.footballData)
 
 const Team = mongoose.model('Team', Schema)
 
