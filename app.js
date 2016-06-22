@@ -1,6 +1,7 @@
 import bets from './api/bets'
 import bodyParser from 'koa-bodyparser'
 import config from 'config'
+import fixtures from './api/fixtures'
 import games from './api/games'
 import jsonApiContentNegotiation from './middleware/jsonApiContentNegotiation'
 import Koa from 'koa'
@@ -44,6 +45,8 @@ app
   .use(teams.allowedMethods())
   .use(games.routes())
   .use(games.allowedMethods())
+  .use(fixtures.routes())
+  .use(fixtures.allowedMethods())
   .use(bets.routes())
   .use(bets.allowedMethods())
 
