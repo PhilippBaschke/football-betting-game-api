@@ -10,7 +10,7 @@ const only_id = fp.compose(fp.mapKeys(() => '_id'), fp.pick(['id']))
 const index = async (ctx, next) => {
   const soccerSeasons = await SoccerSeason.find().populate('teams')
 
-  ctx.body = Serializer.serialize(soccerSeasons)
+  ctx.body = Serializer.serialize(fp.map((s) => s.toObject(), soccerSeasons))
   await next()
 }
 
@@ -19,7 +19,7 @@ const show = async (ctx, next) => {
     '_id': ctx.params.id
   }).populate('teams')
 
-  ctx.body = Serializer.serialize(soccerSeason)
+  ctx.body = Serializer.serialize(soccerSeason.toObject())
   await next()
 }
 

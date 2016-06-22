@@ -1,4 +1,5 @@
 import {Deserializer, Serializer} from 'jsonapi-serializer'
+import {serializeOpts as fixturesSerializeOpts} from '../fixtures/serializer'
 import fp from 'lodash/fp'
 import {serializeOpts as teamsSerializeOpts} from '../teams/serializer'
 
@@ -10,14 +11,21 @@ const serializeOpts = (isRef = true) => {
       'caption',
       'league',
       'year',
-      'teams'
+      'teams',
+      'fixtures'
     ],
-    'teams': teamsSerializeOpts()
+    'teams': teamsSerializeOpts(),
+    'fixtures': fixturesSerializeOpts()
   }
 
   const rootOptions = {
     'id': '_id',
-    'keyForAttribute': fp.identity
+    'keyForAttribute': fp.identity,
+    'typeForAttribute': (attr) => {
+      if (fp.endsWith('Team', attr)) { return 'teams' }
+
+      return attr
+    }
   }
 
   const refOptions = {
