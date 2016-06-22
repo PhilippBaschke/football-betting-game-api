@@ -13,10 +13,10 @@ const serializeOpts = (isRef = true) => {
       'result'
     ],
     'homeTeam': {
-      'ref': true
+      'ref': 'id'
     },
     'awayTeam': {
-      'ref': true
+      'ref': 'id'
     },
     'typeForAttribute': (attr) => {
       if (fp.endsWith('Team', attr)) { return 'teams' }
