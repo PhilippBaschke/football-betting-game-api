@@ -36,11 +36,6 @@ const Schema = new mongoose.Schema({
   }
 })
 
-const Bet = mongoose.model('Bet', Schema)
-
 export {
-  Schema,
-  Bet
+  Schema
 }
-
-export default Bet
