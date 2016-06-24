@@ -1,5 +1,4 @@
 import mongoose from 'mongoose'
-import {Schema as teamSchema} from '../teams/model'
 
 const Schema = new mongoose.Schema({
   'player': {
@@ -14,19 +13,25 @@ const Schema = new mongoose.Schema({
     }
   },
   'teams': {
-    'type': [teamSchema],
+    'type': [{
+      'type': Number,
+      'ref': 'Team'
+    }],
     'required': true
   },
   'surpriseTeam': {
-    'type': teamSchema,
+    'type': Number,
+    'ref': 'Team',
     'required': true
   },
   'loserTeam': {
-    'type': teamSchema,
+    'type': Number,
+    'ref': 'Team',
     'required': true
   },
   'winner': {
-    'type': teamSchema,
+    'type': Number,
+    'ref': 'Team',
     'required': true
   }
 })

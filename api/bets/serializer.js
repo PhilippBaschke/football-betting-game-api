@@ -26,7 +26,7 @@ const serializeOpts = (isRef = true) => {
       ]
     },
     'teams': {
-      'ref': '_id'
+      'ref': true
     },
     'surpriseTeam': {
       'ref': '_id'
